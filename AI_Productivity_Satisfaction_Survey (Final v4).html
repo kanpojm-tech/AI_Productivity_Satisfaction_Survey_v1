@@ -1,0 +1,1294 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<meta name="format-detection" content="telephone=no">
+<title>แบบประเมินความพึงพอใจ — AI for Productivity | หอการค้าไทย</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  /* ============ RESET & BASE ============ */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+  body {
+    font-family: 'Sarabun', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #1f2937;
+    background: linear-gradient(135deg, #f0f4fa 0%, #e8eef7 100%);
+    min-height: 100vh;
+    padding: 16px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ============ LAYOUT ============ */
+  .wrapper { max-width: 760px; margin: 0 auto; }
+
+  .header-card {
+    background: linear-gradient(135deg, #1B3472 0%, #2D4A8A 100%);
+    color: #fff;
+    border-radius: 16px 16px 0 0;
+    padding: 28px 24px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(27, 52, 114, 0.15);
+  }
+  .header-card .logo-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+  .header-card .logo-pill {
+    background: rgba(255, 255, 255, 0.15);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    backdrop-filter: blur(10px);
+  }
+  .header-card h1 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+  .header-card .subtitle {
+    font-size: 14px;
+    opacity: 0.92;
+    font-weight: 400;
+  }
+  .header-card .event-meta {
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    font-size: 13px;
+    opacity: 0.85;
+  }
+
+  .form-card {
+    background: #fff;
+    border-radius: 0 0 16px 16px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+    overflow: hidden;
+  }
+
+  .intro {
+    padding: 22px 24px;
+    background: #FFF8E1;
+    border-left: 4px solid #D4A11C;
+    margin: 0;
+    font-size: 14.5px;
+    color: #5C4318;
+    line-height: 1.65;
+  }
+  .intro strong { color: #1B3472; }
+
+  /* ============ SECTIONS ============ */
+  .section {
+    padding: 24px;
+    border-bottom: 1px solid #f0f2f5;
+  }
+  .section:last-of-type { border-bottom: none; }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 6px;
+  }
+  .section-number {
+    background: #1B3472;
+    color: #fff;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 15px;
+    flex-shrink: 0;
+  }
+  .section-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1B3472;
+  }
+  .section-desc {
+    font-size: 13.5px;
+    color: #6b7280;
+    margin: 4px 0 18px 44px;
+  }
+
+  /* ============ FORM FIELDS ============ */
+  .field { margin-bottom: 18px; }
+  .field:last-child { margin-bottom: 0; }
+
+  .label {
+    display: block;
+    font-size: 14.5px;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 8px;
+    line-height: 1.5;
+  }
+  .label .required { color: #dc2626; margin-left: 4px; }
+  .label .helper {
+    display: block;
+    font-size: 12.5px;
+    font-weight: 400;
+    color: #6b7280;
+    margin-top: 3px;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  textarea {
+    width: 100%;
+    padding: 11px 14px;
+    border: 1.5px solid #d1d5db;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 15px;
+    color: #1f2937;
+    background: #fff;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  input[type="text"]:focus,
+  input[type="email"]:focus,
+  input[type="tel"]:focus,
+  textarea:focus {
+    outline: none;
+    border-color: #1B3472;
+    box-shadow: 0 0 0 3px rgba(27, 52, 114, 0.12);
+  }
+  input.error,
+  textarea.error,
+  .rating-row.error,
+  .checkbox-group.error,
+  .radio-group.error {
+    border-color: #dc2626 !important;
+    box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+  }
+  textarea { resize: vertical; min-height: 80px; }
+
+  /* ============ RADIO / CHECKBOX ============ */
+  .radio-group, .checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    border-radius: 8px;
+    padding: 4px;
+  }
+  .opt {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 11px 14px;
+    border: 1.5px solid #e5e7eb;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.15s;
+    background: #fff;
+    user-select: none;
+  }
+  .opt:hover { border-color: #1B3472; background: #f8faff; }
+  .opt input[type="radio"],
+  .opt input[type="checkbox"] {
+    margin: 3px 0 0 0;
+    cursor: pointer;
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    accent-color: #1B3472;
+  }
+  .opt-text { flex: 1; font-size: 14.5px; line-height: 1.5; }
+  .opt input:checked + .opt-text { color: #1B3472; font-weight: 500; }
+  .opt:has(input:checked) {
+    border-color: #1B3472;
+    background: #f0f4fa;
+  }
+
+  /* ============ RATING (Likert) ============ */
+  .rating-row {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 6px;
+    margin-top: 4px;
+  }
+  .rate {
+    position: relative;
+    text-align: center;
+    cursor: pointer;
+    user-select: none;
+  }
+  .rate input { position: absolute; opacity: 0; pointer-events: none; }
+  .rate-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 4px;
+    border: 1.5px solid #e5e7eb;
+    border-radius: 8px;
+    background: #fff;
+    transition: all 0.15s;
+    min-height: 64px;
+  }
+  .rate-num {
+    font-size: 18px;
+    font-weight: 700;
+    color: #6b7280;
+    line-height: 1;
+  }
+  .rate-label {
+    font-size: 11px;
+    color: #9ca3af;
+    margin-top: 4px;
+    line-height: 1.2;
+  }
+  .rate:hover .rate-box {
+    border-color: #1B3472;
+    background: #f8faff;
+  }
+  .rate input:checked + .rate-box {
+    border-color: #1B3472;
+    background: #1B3472;
+    color: #fff;
+  }
+  .rate input:checked + .rate-box .rate-num,
+  .rate input:checked + .rate-box .rate-label { color: #fff; }
+
+  /* ============ MODULE ROW (rating per session) ============ */
+  .module-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+    padding: 14px;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    margin-bottom: 12px;
+    background: #fafbfc;
+  }
+  .module-info { line-height: 1.45; }
+  .module-time {
+    display: inline-block;
+    background: #1B3472;
+    color: #fff;
+    font-size: 11.5px;
+    font-weight: 600;
+    padding: 3px 9px;
+    border-radius: 4px;
+    margin-bottom: 6px;
+  }
+  .module-name {
+    font-size: 14.5px;
+    font-weight: 600;
+    color: #1f2937;
+  }
+  .module-desc {
+    font-size: 12.5px;
+    color: #6b7280;
+    margin-top: 2px;
+  }
+  .skip-line {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px dashed #e5e7eb;
+    font-size: 13px;
+    color: #6b7280;
+  }
+  .skip-line input { accent-color: #6b7280; }
+
+  /* ============ ERROR MESSAGE ============ */
+  .err-msg {
+    display: none;
+    color: #dc2626;
+    font-size: 12.5px;
+    margin-top: 6px;
+    font-weight: 500;
+  }
+  .err-msg.show { display: block; }
+
+  /* ============ SUBMIT ============ */
+  .submit-section {
+    padding: 24px;
+    background: #f8faff;
+    text-align: center;
+  }
+  .submit-btn {
+    width: 100%;
+    max-width: 360px;
+    background: linear-gradient(135deg, #1B3472 0%, #2D4A8A 100%);
+    color: #fff;
+    border: none;
+    padding: 15px 28px;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.1s, box-shadow 0.15s;
+    box-shadow: 0 4px 12px rgba(27, 52, 114, 0.25);
+  }
+  .submit-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(27, 52, 114, 0.35); }
+  .submit-btn:active { transform: translateY(0); }
+  .submit-btn:disabled {
+    background: #9ca3af;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+  .submit-note {
+    margin-top: 12px;
+    font-size: 12.5px;
+    color: #6b7280;
+  }
+
+  /* ============ SUCCESS / ERROR PANELS ============ */
+  .panel-success, .panel-error {
+    display: none;
+    padding: 40px 24px;
+    text-align: center;
+  }
+  .panel-success.show, .panel-error.show { display: block; }
+  .panel-success {
+    background: linear-gradient(135deg, #ECFDF5 0%, #D1FAE5 100%);
+    border-radius: 16px;
+  }
+  .panel-error {
+    background: #FEF2F2;
+    border-radius: 16px;
+  }
+  .panel-icon {
+    font-size: 56px;
+    line-height: 1;
+    margin-bottom: 16px;
+  }
+  .panel-success h2 { color: #047857; font-size: 22px; margin-bottom: 10px; }
+  .panel-error h2 { color: #b91c1c; font-size: 22px; margin-bottom: 10px; }
+  .panel-success p, .panel-error p { color: #4b5563; font-size: 14.5px; line-height: 1.7; }
+  .retry-btn {
+    margin-top: 16px;
+    background: #1B3472;
+    color: #fff;
+    border: none;
+    padding: 11px 24px;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 14.5px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  /* ============ FOOTER ============ */
+  .footer {
+    text-align: center;
+    padding: 18px;
+    font-size: 12px;
+    color: #9ca3af;
+  }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 480px) {
+    body { padding: 8px; font-size: 15px; }
+    .header-card { padding: 22px 18px; }
+    .header-card h1 { font-size: 19px; }
+    .section { padding: 20px 16px; }
+    .section-title { font-size: 16.5px; }
+    .section-desc { margin-left: 0; margin-top: 8px; }
+    .submit-section { padding: 20px 16px; }
+    .rate-num { font-size: 16px; }
+    .rate-label { font-size: 10px; }
+    .rate-box { padding: 8px 2px; min-height: 56px; }
+  }
+
+  /* ============ SCROLL ANCHOR ============ */
+  .scroll-anchor { scroll-margin-top: 16px; }
+
+  /* ============ NEW v3 COMPONENTS ============ */
+  .module-feedback {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px dashed #e5e7eb;
+  }
+  .module-feedback label {
+    display: block;
+    font-size: 13px;
+    color: #4b5563;
+    margin-bottom: 6px;
+    font-weight: 500;
+  }
+  .module-feedback textarea {
+    font-size: 13.5px;
+    min-height: 60px;
+    padding: 9px 12px;
+  }
+  .product-vote {
+    background: #fafbfc;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    padding: 14px;
+    margin-bottom: 10px;
+  }
+  .product-vote-name {
+    font-size: 14.5px;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 8px;
+  }
+  .product-vote-desc {
+    font-size: 12.5px;
+    color: #6b7280;
+    margin-top: 2px;
+    margin-bottom: 8px;
+  }
+  .open-ended-section {
+    background: #f8faff;
+    border-left: 3px solid #1B3472;
+    padding: 14px 16px;
+    border-radius: 0 8px 8px 0;
+    margin-top: 16px;
+  }
+
+</style>
+</head>
+<body>
+
+<div class="wrapper">
+
+  <header class="header-card">
+    <div class="logo-row">
+      <span class="logo-pill">หอการค้าไทย</span>
+      <span class="logo-pill">One7 AI</span>
+    </div>
+    <h1>แบบประเมินความพึงพอใจ<br>การอบรม "AI for Productivity"</h1>
+    <div class="subtitle">โครงการพัฒนาทักษะบุคลากรไทย (Upskill–Reskill)</div>
+    <div class="event-meta">วันพุธที่ 29 เมษายน 2569 · เวลา 08.30 – 16.00 น.</div>
+  </header>
+
+  <main class="form-card" id="formCard">
+
+    <p class="intro">
+      <strong>ขอบพระคุณท่านที่ร่วมการอบรมในวันนี้ค่ะ</strong> ความคิดเห็นของท่านมีส่วนสำคัญในการพัฒนาหลักสูตรครั้งต่อไปให้ตรงกับความต้องการของผู้ประกอบการและบุคลากรไทยมากยิ่งขึ้น<br>
+      แบบประเมินใช้เวลาประมาณ <strong>3–5 นาที</strong> · ข้อมูลของท่านจะถูกเก็บเป็นความลับและใช้เพื่อการพัฒนาหลักสูตรเท่านั้นค่ะ
+    </p>
+
+    <form id="surveyForm" novalidate>
+
+      <!-- ===== SECTION 1: ข้อมูลผู้ตอบ ===== -->
+      <section class="section scroll-anchor" id="sec1">
+        <div class="section-header">
+          <span class="section-number">1</span>
+          <h2 class="section-title">ข้อมูลผู้ตอบแบบประเมิน</h2>
+        </div>
+        <p class="section-desc">เพื่อให้ทีมงานสามารถจัดส่งสรุปเนื้อหาและติดตามผลหลังการอบรมถึงท่านได้อย่างถูกต้องค่ะ</p>
+
+        <div class="field">
+          <label class="label" for="fullname">ชื่อ – นามสกุล<span class="helper">ไม่บังคับ</span></label>
+          <input type="text" id="fullname" name="fullname" autocomplete="name" placeholder="เช่น นายสมชาย ใจดี">
+        </div>
+
+        <div class="field">
+          <label class="label" for="organization">หน่วยงาน / บริษัท / สถาบัน <span class="required">*</span></label>
+          <input type="text" id="organization" name="organization" autocomplete="organization" placeholder="เช่น บริษัท ตัวอย่าง จำกัด">
+          <div class="err-msg" data-for="organization">กรุณากรอกหน่วยงาน/บริษัท</div>
+        </div>
+
+        <div class="field">
+          <label class="label" for="position">ตำแหน่ง<span class="helper">ไม่บังคับ</span></label>
+          <input type="text" id="position" name="position" autocomplete="organization-title" placeholder="เช่น ผู้จัดการฝ่ายการตลาด">
+        </div>
+
+        <div class="field">
+          <label class="label" for="email">อีเมล <span class="required">*</span><span class="helper">สำหรับจัดส่งสรุปเนื้อหาและไฟล์ Workshop หลังการอบรม</span></label>
+          <input type="email" id="email" name="email" autocomplete="email" placeholder="example@email.com">
+          <div class="err-msg" data-for="email">กรุณากรอกอีเมลให้ถูกต้อง</div>
+        </div>
+
+        <div class="field">
+          <label class="label" for="lineIdMain">LINE ID<span class="helper">ไม่บังคับ — สำหรับติดต่อกลับสะดวกขึ้น</span></label>
+          <input type="text" id="lineIdMain" name="lineIdMain" placeholder="เช่น @company หรือ john_doe">
+        </div>
+
+        <div class="field">
+          <label class="label">รูปแบบการเข้าร่วมอบรม <span class="required">*</span></label>
+          <div class="radio-group" data-group="attendType">
+            <label class="opt"><input type="radio" name="attendType" value="Onsite"><span class="opt-text">เข้าร่วม Onsite ณ สภาหอการค้าแห่งประเทศไทย</span></label>
+            <label class="opt"><input type="radio" name="attendType" value="Online"><span class="opt-text">เข้าร่วม Online ผ่าน Zoom Meeting</span></label>
+          </div>
+          <div class="err-msg" data-for="attendType">กรุณาเลือกรูปแบบการเข้าร่วม</div>
+        </div>
+      </section>
+      <!-- ===== SECTION 2: ช่วงที่ 1A — AI Landscape ===== -->
+      <section class="section scroll-anchor" id="sec2">
+        <div class="section-header">
+          <span class="section-number">2</span>
+          <h2 class="section-title">ช่วงที่ 1A — AI Landscape</h2>
+        </div>
+
+        <div class="module-row">
+          <div class="module-info">
+            <span class="module-time">09:00 – 09:30</span>
+            <div class="module-name">AI Landscape</div>
+            <div class="module-desc">ภาพรวม AI ในโลกและประเทศไทย · เทรนด์และทิศทางในอนาคต</div>
+          </div>
+          <div class="rating-row" data-group="rateLandscape">
+            <label class="rate"><input type="radio" name="rateLandscape" value="1"><span class="rate-box"><span class="rate-num">1</span><span class="rate-label">น้อยที่สุด</span></span></label>
+            <label class="rate"><input type="radio" name="rateLandscape" value="2"><span class="rate-box"><span class="rate-num">2</span><span class="rate-label">น้อย</span></span></label>
+            <label class="rate"><input type="radio" name="rateLandscape" value="3"><span class="rate-box"><span class="rate-num">3</span><span class="rate-label">ปานกลาง</span></span></label>
+            <label class="rate"><input type="radio" name="rateLandscape" value="4"><span class="rate-box"><span class="rate-num">4</span><span class="rate-label">มาก</span></span></label>
+            <label class="rate"><input type="radio" name="rateLandscape" value="5"><span class="rate-box"><span class="rate-num">5</span><span class="rate-label">มากที่สุด</span></span></label>
+          </div>
+          <div class="skip-line"><label class="opt" style="border:none;padding:4px 0;background:transparent;"><input type="checkbox" name="skipLandscape" value="1"><span class="opt-text" style="font-size:13px;color:#6b7280;">ไม่ได้เข้าร่วมช่วงนี้</span></label></div>
+          <div class="err-msg" data-for="rateLandscape">กรุณาประเมินหรือเลือก "ไม่ได้เข้าร่วมช่วงนี้"</div>
+        </div>
+      </section>
+
+      <!-- ===== SECTION 3: ช่วงที่ 1B — AI Business ===== -->
+      <section class="section scroll-anchor" id="sec3">
+        <div class="section-header">
+          <span class="section-number">3</span>
+          <h2 class="section-title">ช่วงที่ 1B — AI Business</h2>
+        </div>
+        <p class="section-desc">ในช่วงนี้ได้สาธิตเครื่องมือ AI สำหรับธุรกิจจริง 10 ตัว — โปรดประเมินความพึงพอใจของช่วงนี้และเลือกเครื่องมือที่ท่านสนใจนำไปใช้ในองค์กรค่ะ</p>
+
+        <div class="module-row">
+          <div class="module-info">
+            <span class="module-time">09:30 – 10:00</span>
+            <div class="module-name">ความพึงพอใจของช่วง AI Business</div>
+            <div class="module-desc">โปรดประเมินภาพรวมของช่วงสาธิต AI Product 10 ตัว</div>
+          </div>
+          <div class="rating-row" data-group="rateBusiness">
+            <label class="rate"><input type="radio" name="rateBusiness" value="1"><span class="rate-box"><span class="rate-num">1</span><span class="rate-label">น้อยที่สุด</span></span></label>
+            <label class="rate"><input type="radio" name="rateBusiness" value="2"><span class="rate-box"><span class="rate-num">2</span><span class="rate-label">น้อย</span></span></label>
+            <label class="rate"><input type="radio" name="rateBusiness" value="3"><span class="rate-box"><span class="rate-num">3</span><span class="rate-label">ปานกลาง</span></span></label>
+            <label class="rate"><input type="radio" name="rateBusiness" value="4"><span class="rate-box"><span class="rate-num">4</span><span class="rate-label">มาก</span></span></label>
+            <label class="rate"><input type="radio" name="rateBusiness" value="5"><span class="rate-box"><span class="rate-num">5</span><span class="rate-label">มากที่สุด</span></span></label>
+          </div>
+          <div class="skip-line"><label class="opt" style="border:none;padding:4px 0;background:transparent;"><input type="checkbox" name="skipBusiness" value="1"><span class="opt-text" style="font-size:13px;color:#6b7280;">ไม่ได้เข้าร่วมช่วงนี้</span></label></div>
+          <div class="err-msg" data-for="rateBusiness">กรุณาประเมินหรือเลือก "ไม่ได้เข้าร่วมช่วงนี้"</div>
+        </div>
+
+        <div class="field" style="margin-top:18px;">
+          <label class="label">เครื่องมือ AI ที่ท่านสนใจนำไปใช้ในองค์กร<span class="helper">เลือกได้มากกว่า 1 ข้อ (ไม่บังคับ)</span></label>
+          <div class="checkbox-group" data-group="productInterest">
+            <label class="opt"><input type="checkbox" name="productInterest" value="1. AI Sales Process"><span class="opt-text"><strong>1. AI Sales Process</strong> — กระบวนการขายอัตโนมัติด้วย AI ครบวงจร</span></label>
+            <label class="opt"><input type="checkbox" name="productInterest" value="2. AI Copilot & KM"><span class="opt-text"><strong>2. AI Copilot & KM</strong> — ผู้ช่วย AI · ถามตอบจากคลังความรู้องค์กร · Chatbot ตอบลูกค้า</span></label>
+            <label class="opt"><input type="checkbox" name="productInterest" value="3. AI Sentiment Analysis"><span class="opt-text"><strong>3. AI Sentiment Analysis</strong> — วิเคราะห์อารมณ์/ความพึงพอใจลูกค้าจากข้อความและเสียง</span></label>
+            <label class="opt"><input type="checkbox" name="productInterest" value="4. AI Sales Report"><span class="opt-text"><strong>4. AI Sales Report</strong> — สรุปยอดขายอัตโนมัติ · Sub-Dealer Report · วิเคราะห์สินค้าฟันหลอ</span></label>
+            <label class="opt"><input type="checkbox" name="productInterest" value="5. AI CRM On-site & VOC"><span class="opt-text"><strong>5. AI CRM On-site & VOC</strong> — Check-in หน้างาน · บันทึกรูป/โน้ต · เก็บ Voice of Customer แบบ real-time</span></label>
+            <label class="opt"><input type="checkbox" name="productInterest" value="6. AI Sales Flow Management"><span class="opt-text"><strong>6. AI Sales Flow Management</strong> — ออกแบบ Workflow การขาย B2B · Cross-Sell · แนะนำสินค้าจากรูป/ประเภทงาน</span></label>
+            <label class="opt"><input type="checkbox" name="productInterest" value="7. AI Document Transfer"><span class="opt-text"><strong>7. AI Document Transfer</strong> — สแกนบิล/เอกสาร → แปลงเป็นข้อมูลอัตโนมัติ (เช่น Beger 150,000 บิล/6 เดือน)</span></label>
+            <label class="opt"><input type="checkbox" name="productInterest" value="8. AI Affiliate"><span class="opt-text"><strong>8. AI Affiliate</strong> — ระบบบอกต่อแนะนำ · ผู้แชร์ส่งต่อผู้รับผ่าน LINE</span></label>
+            <label class="opt"><input type="checkbox" name="productInterest" value="9. AI To-Do List"><span class="opt-text"><strong>9. AI To-Do List</strong> — เลขา AI โน้ตงานอัตโนมัติ · รับ-สั่งงานผ่าน LINE · จากเสียงประชุม/โทรศัพท์</span></label>
+            <label class="opt"><input type="checkbox" name="productInterest" value="10. AI Computer Vision"><span class="opt-text"><strong>10. AI Computer Vision</strong> — ตรวจคุณภาพสินค้า · ตรวจการทำงาน · ตรวจ Safety จากภาพ/วิดีโอ</span></label>
+          </div>
+        </div>
+
+        <div class="open-ended-section">
+          <div class="field" style="margin:0;">
+            <label class="label" for="productComment">เพิ่มเติม — ท่านคิดว่าจะนำเครื่องมือไหนไปใช้อย่างไร?<span class="helper">ไม่บังคับ — ความเห็นของท่านจะช่วยให้ทีมพัฒนาโปรดักส์ตรงความต้องการมากขึ้น</span></label>
+            <textarea id="productComment" name="productComment" rows="3" placeholder="แบ่งปันความคิดเห็นได้ค่ะ"></textarea>
+          </div>
+        </div>
+      </section>
+<!-- ===== SECTION 3: Prompt Engineering + เลขา AI ===== -->
+      <section class="section scroll-anchor" id="sec4">
+        <div class="section-header">
+          <span class="section-number">4</span>
+          <h2 class="section-title">ช่วงที่ 2 — Prompt Engineering (R.A.C.E.) และเลขาส่วนตัวด้วย AI</h2>
+        </div>
+
+        <div class="module-row">
+          <div class="module-info">
+            <span class="module-time">10:00 – 10:45</span>
+            <div class="module-name">Prompt Engineering + เลขา AI</div>
+            <div class="module-desc">การเขียนคำสั่ง AI · Voice Prompt · ร่างเอกสาร / สัญญา / ข้อความ LINE</div>
+          </div>
+          <div class="rating-row" data-group="rateM2">
+            <label class="rate"><input type="radio" name="rateM2" value="1"><span class="rate-box"><span class="rate-num">1</span><span class="rate-label">น้อยที่สุด</span></span></label>
+            <label class="rate"><input type="radio" name="rateM2" value="2"><span class="rate-box"><span class="rate-num">2</span><span class="rate-label">น้อย</span></span></label>
+            <label class="rate"><input type="radio" name="rateM2" value="3"><span class="rate-box"><span class="rate-num">3</span><span class="rate-label">ปานกลาง</span></span></label>
+            <label class="rate"><input type="radio" name="rateM2" value="4"><span class="rate-box"><span class="rate-num">4</span><span class="rate-label">มาก</span></span></label>
+            <label class="rate"><input type="radio" name="rateM2" value="5"><span class="rate-box"><span class="rate-num">5</span><span class="rate-label">มากที่สุด</span></span></label>
+          </div>
+          <div class="skip-line"><label class="opt" style="border:none;padding:4px 0;background:transparent;"><input type="checkbox" name="skipM2" value="1"><span class="opt-text" style="font-size:13px;color:#6b7280;">ไม่ได้เข้าร่วมช่วงนี้</span></label></div>
+          <div class="module-feedback">
+            <label for="commentM2">คำแนะนำ / ข้อเสนอแนะสำหรับช่วงนี้ (ไม่บังคับ)</label>
+            <textarea id="commentM2" name="commentM2" rows="2" placeholder="แบ่งปันความคิดเห็นได้ค่ะ"></textarea>
+          </div>
+          <div class="err-msg" data-for="rateM2">กรุณาประเมินหรือเลือก "ไม่ได้เข้าร่วมช่วงนี้"</div>
+        </div>
+      </section>
+
+      <!-- ===== SECTION 4: AI วิเคราะห์ Excel 6 มิติ ===== -->
+      <section class="section scroll-anchor" id="sec5">
+        <div class="section-header">
+          <span class="section-number">5</span>
+          <h2 class="section-title">ช่วงที่ 3 — วิเคราะห์ข้อมูลธุรกิจด้วย AI (Excel 6 มิติ)</h2>
+        </div>
+
+        <div class="module-row">
+          <div class="module-info">
+            <span class="module-time">11:00 – 12:00</span>
+            <div class="module-name">AI วิเคราะห์ Excel 6 มิติ</div>
+            <div class="module-desc">ยอดขาย · ต้นทุน · สต็อก · ค่าใช้จ่าย · พนักงาน / Training · Performance ทีม</div>
+          </div>
+          <div class="rating-row" data-group="rateM3">
+            <label class="rate"><input type="radio" name="rateM3" value="1"><span class="rate-box"><span class="rate-num">1</span><span class="rate-label">น้อยที่สุด</span></span></label>
+            <label class="rate"><input type="radio" name="rateM3" value="2"><span class="rate-box"><span class="rate-num">2</span><span class="rate-label">น้อย</span></span></label>
+            <label class="rate"><input type="radio" name="rateM3" value="3"><span class="rate-box"><span class="rate-num">3</span><span class="rate-label">ปานกลาง</span></span></label>
+            <label class="rate"><input type="radio" name="rateM3" value="4"><span class="rate-box"><span class="rate-num">4</span><span class="rate-label">มาก</span></span></label>
+            <label class="rate"><input type="radio" name="rateM3" value="5"><span class="rate-box"><span class="rate-num">5</span><span class="rate-label">มากที่สุด</span></span></label>
+          </div>
+          <div class="skip-line"><label class="opt" style="border:none;padding:4px 0;background:transparent;"><input type="checkbox" name="skipM3" value="1"><span class="opt-text" style="font-size:13px;color:#6b7280;">ไม่ได้เข้าร่วมช่วงนี้</span></label></div>
+          <div class="module-feedback">
+            <label for="commentM3">คำแนะนำ / ข้อเสนอแนะสำหรับช่วงนี้ (ไม่บังคับ)</label>
+            <textarea id="commentM3" name="commentM3" rows="2" placeholder="แบ่งปันความคิดเห็นได้ค่ะ"></textarea>
+          </div>
+          <div class="err-msg" data-for="rateM3">กรุณาประเมินหรือเลือก "ไม่ได้เข้าร่วมช่วงนี้"</div>
+        </div>
+      </section>
+
+      <!-- ===== SECTION 5: NotebookLM + สไลด์นำเสนอ ===== -->
+      <section class="section scroll-anchor" id="sec6">
+        <div class="section-header">
+          <span class="section-number">6</span>
+          <h2 class="section-title">ช่วงที่ 4 — NotebookLM และการสร้างสไลด์นำเสนอ</h2>
+        </div>
+
+        <div class="module-row">
+          <div class="module-info">
+            <span class="module-time">13:00 – 13:45</span>
+            <div class="module-name">NotebookLM + สไลด์นำเสนอ</div>
+            <div class="module-desc">ถามตอบจากเอกสาร · สร้าง Slide Deck / Podcast / Infographic จาก PDF</div>
+          </div>
+          <div class="rating-row" data-group="rateM4">
+            <label class="rate"><input type="radio" name="rateM4" value="1"><span class="rate-box"><span class="rate-num">1</span><span class="rate-label">น้อยที่สุด</span></span></label>
+            <label class="rate"><input type="radio" name="rateM4" value="2"><span class="rate-box"><span class="rate-num">2</span><span class="rate-label">น้อย</span></span></label>
+            <label class="rate"><input type="radio" name="rateM4" value="3"><span class="rate-box"><span class="rate-num">3</span><span class="rate-label">ปานกลาง</span></span></label>
+            <label class="rate"><input type="radio" name="rateM4" value="4"><span class="rate-box"><span class="rate-num">4</span><span class="rate-label">มาก</span></span></label>
+            <label class="rate"><input type="radio" name="rateM4" value="5"><span class="rate-box"><span class="rate-num">5</span><span class="rate-label">มากที่สุด</span></span></label>
+          </div>
+          <div class="skip-line"><label class="opt" style="border:none;padding:4px 0;background:transparent;"><input type="checkbox" name="skipM4" value="1"><span class="opt-text" style="font-size:13px;color:#6b7280;">ไม่ได้เข้าร่วมช่วงนี้</span></label></div>
+          <div class="module-feedback">
+            <label for="commentM4">คำแนะนำ / ข้อเสนอแนะสำหรับช่วงนี้ (ไม่บังคับ)</label>
+            <textarea id="commentM4" name="commentM4" rows="2" placeholder="แบ่งปันความคิดเห็นได้ค่ะ"></textarea>
+          </div>
+          <div class="err-msg" data-for="rateM4">กรุณาประเมินหรือเลือก "ไม่ได้เข้าร่วมช่วงนี้"</div>
+        </div>
+      </section>
+
+      <!-- ===== SECTION 6: AI สื่อโฆษณา + คอนเทนต์ ===== -->
+      <section class="section scroll-anchor" id="sec7">
+        <div class="section-header">
+          <span class="section-number">7</span>
+          <h2 class="section-title">ช่วงที่ 5 — AI สื่อโฆษณาและคอนเทนต์</h2>
+        </div>
+
+        <div class="module-row">
+          <div class="module-info">
+            <span class="module-time">13:45 – 14:30</span>
+            <div class="module-name">AI สื่อโฆษณา + คอนเทนต์</div>
+            <div class="module-desc">โปสเตอร์ · Infographic · วิดีโอ · Google Trends · Canva / Gemini Imagen</div>
+          </div>
+          <div class="rating-row" data-group="rateM5">
+            <label class="rate"><input type="radio" name="rateM5" value="1"><span class="rate-box"><span class="rate-num">1</span><span class="rate-label">น้อยที่สุด</span></span></label>
+            <label class="rate"><input type="radio" name="rateM5" value="2"><span class="rate-box"><span class="rate-num">2</span><span class="rate-label">น้อย</span></span></label>
+            <label class="rate"><input type="radio" name="rateM5" value="3"><span class="rate-box"><span class="rate-num">3</span><span class="rate-label">ปานกลาง</span></span></label>
+            <label class="rate"><input type="radio" name="rateM5" value="4"><span class="rate-box"><span class="rate-num">4</span><span class="rate-label">มาก</span></span></label>
+            <label class="rate"><input type="radio" name="rateM5" value="5"><span class="rate-box"><span class="rate-num">5</span><span class="rate-label">มากที่สุด</span></span></label>
+          </div>
+          <div class="skip-line"><label class="opt" style="border:none;padding:4px 0;background:transparent;"><input type="checkbox" name="skipM5" value="1"><span class="opt-text" style="font-size:13px;color:#6b7280;">ไม่ได้เข้าร่วมช่วงนี้</span></label></div>
+          <div class="module-feedback">
+            <label for="commentM5">คำแนะนำ / ข้อเสนอแนะสำหรับช่วงนี้ (ไม่บังคับ)</label>
+            <textarea id="commentM5" name="commentM5" rows="2" placeholder="แบ่งปันความคิดเห็นได้ค่ะ"></textarea>
+          </div>
+          <div class="err-msg" data-for="rateM5">กรุณาประเมินหรือเลือก "ไม่ได้เข้าร่วมช่วงนี้"</div>
+        </div>
+      </section>
+
+      <!-- ===== SECTION 7: AI งานธุรการ ===== -->
+      <section class="section scroll-anchor" id="sec8">
+        <div class="section-header">
+          <span class="section-number">8</span>
+          <h2 class="section-title">ช่วงที่ 6 — AI งานธุรการ (OCR + เช็คคู่แข่ง + Meta AI)</h2>
+        </div>
+
+        <div class="module-row">
+          <div class="module-info">
+            <span class="module-time">14:45 – 15:15</span>
+            <div class="module-name">AI งานธุรการ</div>
+            <div class="module-desc">สแกนบิลเป็น Excel · วิเคราะห์เว็บคู่แข่ง · Meta AI แกะข้อมูลคู่แข่งจาก Facebook</div>
+          </div>
+          <div class="rating-row" data-group="rateM6">
+            <label class="rate"><input type="radio" name="rateM6" value="1"><span class="rate-box"><span class="rate-num">1</span><span class="rate-label">น้อยที่สุด</span></span></label>
+            <label class="rate"><input type="radio" name="rateM6" value="2"><span class="rate-box"><span class="rate-num">2</span><span class="rate-label">น้อย</span></span></label>
+            <label class="rate"><input type="radio" name="rateM6" value="3"><span class="rate-box"><span class="rate-num">3</span><span class="rate-label">ปานกลาง</span></span></label>
+            <label class="rate"><input type="radio" name="rateM6" value="4"><span class="rate-box"><span class="rate-num">4</span><span class="rate-label">มาก</span></span></label>
+            <label class="rate"><input type="radio" name="rateM6" value="5"><span class="rate-box"><span class="rate-num">5</span><span class="rate-label">มากที่สุด</span></span></label>
+          </div>
+          <div class="skip-line"><label class="opt" style="border:none;padding:4px 0;background:transparent;"><input type="checkbox" name="skipM6" value="1"><span class="opt-text" style="font-size:13px;color:#6b7280;">ไม่ได้เข้าร่วมช่วงนี้</span></label></div>
+          <div class="module-feedback">
+            <label for="commentM6">คำแนะนำ / ข้อเสนอแนะสำหรับช่วงนี้ (ไม่บังคับ)</label>
+            <textarea id="commentM6" name="commentM6" rows="2" placeholder="แบ่งปันความคิดเห็นได้ค่ะ"></textarea>
+          </div>
+          <div class="err-msg" data-for="rateM6">กรุณาประเมินหรือเลือก "ไม่ได้เข้าร่วมช่วงนี้"</div>
+        </div>
+      </section>
+
+      <!-- ===== SECTION 8: Cowork + Google Workspace AI ===== -->
+      <section class="section scroll-anchor" id="sec9">
+        <div class="section-header">
+          <span class="section-number">9</span>
+          <h2 class="section-title">ช่วงที่ 7 — Claude Cowork + Google Workspace AI</h2>
+        </div>
+
+        <div class="module-row">
+          <div class="module-info">
+            <span class="module-time">15:15 – 16:00</span>
+            <div class="module-name">Cowork + Google Workspace AI</div>
+            <div class="module-desc">AI Desktop Agent (Cowork + Skills + Routines) · Gemini ใน Gmail / Calendar / Drive / Sheets</div>
+          </div>
+          <div class="rating-row" data-group="rateM7">
+            <label class="rate"><input type="radio" name="rateM7" value="1"><span class="rate-box"><span class="rate-num">1</span><span class="rate-label">น้อยที่สุด</span></span></label>
+            <label class="rate"><input type="radio" name="rateM7" value="2"><span class="rate-box"><span class="rate-num">2</span><span class="rate-label">น้อย</span></span></label>
+            <label class="rate"><input type="radio" name="rateM7" value="3"><span class="rate-box"><span class="rate-num">3</span><span class="rate-label">ปานกลาง</span></span></label>
+            <label class="rate"><input type="radio" name="rateM7" value="4"><span class="rate-box"><span class="rate-num">4</span><span class="rate-label">มาก</span></span></label>
+            <label class="rate"><input type="radio" name="rateM7" value="5"><span class="rate-box"><span class="rate-num">5</span><span class="rate-label">มากที่สุด</span></span></label>
+          </div>
+          <div class="skip-line"><label class="opt" style="border:none;padding:4px 0;background:transparent;"><input type="checkbox" name="skipM7" value="1"><span class="opt-text" style="font-size:13px;color:#6b7280;">ไม่ได้เข้าร่วมช่วงนี้</span></label></div>
+          <div class="module-feedback">
+            <label for="commentM7">คำแนะนำ / ข้อเสนอแนะสำหรับช่วงนี้ (ไม่บังคับ)</label>
+            <textarea id="commentM7" name="commentM7" rows="2" placeholder="แบ่งปันความคิดเห็นได้ค่ะ"></textarea>
+          </div>
+          <div class="err-msg" data-for="rateM7">กรุณาประเมินหรือเลือก "ไม่ได้เข้าร่วมช่วงนี้"</div>
+        </div>
+      </section>
+
+
+      <!-- ===== SECTION 9: ช่วงเสริม / สาธิตพิเศษ ===== -->
+      <section class="section scroll-anchor" id="sec10">
+        <div class="section-header">
+          <span class="section-number">10</span>
+          <h2 class="section-title">ช่วงเสริม / สาธิตพิเศษ</h2>
+        </div>
+        <p class="section-desc">นอกเหนือจากช่วงหลัก วิทยากรได้สาธิตเครื่องมือเสริม (TrickShot) และมีช่วงพิเศษเพิ่มเติม โปรดประเมินตามที่ท่านได้เข้าร่วมค่ะ</p>
+
+        <!-- ----- TrickShot — ติ๊กอย่างเดียว ไม่ต้อง rate ----- -->
+        <div class="module-row">
+          <div class="module-info">
+            <span class="module-time" style="background:#7C3AED;">TrickShot</span>
+            <div class="module-name">TrickShot ที่ท่านประทับใจและสนใจนำไปใช้</div>
+            <div class="module-desc">การสาธิตสั้น 5–10 นาที — เลือกได้มากกว่า 1 ข้อ (ไม่บังคับ)</div>
+          </div>
+          <div class="checkbox-group" data-group="trickFavs" style="margin-top:8px;">
+            <label class="opt"><input type="checkbox" name="trickFavs" value="TS1 Salepage NLM→Lovable"><span class="opt-text">TS1 — สร้าง Salepage จาก NotebookLM → Lovable</span></label>
+            <label class="opt"><input type="checkbox" name="trickFavs" value="TS2 Gem Infographic"><span class="opt-text">TS2 — สร้าง Infographic ด้วย Gemini Gems</span></label>
+            <label class="opt"><input type="checkbox" name="trickFavs" value="TS3 วิเคราะห์ FB Ads"><span class="opt-text">TS3 — วิเคราะห์โฆษณา Facebook ด้วย AI</span></label>
+            <label class="opt"><input type="checkbox" name="trickFavs" value="TS5 Block Code"><span class="opt-text">TS5 — Block Code (Gemini) คัดลอกข้อความไม่เพี้ยน</span></label>
+            <label class="opt"><input type="checkbox" name="trickFavs" value="TS6 Google Mixboard"><span class="opt-text">TS6 — Google Mixboard นำเสนอสินค้า</span></label>
+            <label class="opt"><input type="checkbox" name="trickFavs" value="TS7 Gemma 4"><span class="opt-text">TS7 — Gemma 4 คืออะไร</span></label>
+          </div>
+        </div>
+
+        <!-- ----- พิเศษ: Bloxanaut ----- -->
+        <div class="module-row">
+          <div class="module-info">
+            <span class="module-time" style="background:#0891B2;">พิเศษ</span>
+            <div class="module-name">Router AI / Bloxanaut Platform</div>
+            <div class="module-desc">แพลตฟอร์มรวม AI หลายเจ้าในที่เดียว (AI API Aggregator) — เติมเครดิตครั้งเดียว ใช้ได้ทั้ง ChatGPT / Claude / Gemini / สร้างรูป-วิดีโอ</div>
+          </div>
+          <div class="rating-row" data-group="rateBloxanaut">
+            <label class="rate"><input type="radio" name="rateBloxanaut" value="1"><span class="rate-box"><span class="rate-num">1</span><span class="rate-label">น้อยที่สุด</span></span></label>
+            <label class="rate"><input type="radio" name="rateBloxanaut" value="2"><span class="rate-box"><span class="rate-num">2</span><span class="rate-label">น้อย</span></span></label>
+            <label class="rate"><input type="radio" name="rateBloxanaut" value="3"><span class="rate-box"><span class="rate-num">3</span><span class="rate-label">ปานกลาง</span></span></label>
+            <label class="rate"><input type="radio" name="rateBloxanaut" value="4"><span class="rate-box"><span class="rate-num">4</span><span class="rate-label">มาก</span></span></label>
+            <label class="rate"><input type="radio" name="rateBloxanaut" value="5"><span class="rate-box"><span class="rate-num">5</span><span class="rate-label">มากที่สุด</span></span></label>
+          </div>
+          <div class="skip-line"><label class="opt" style="border:none;padding:4px 0;background:transparent;"><input type="checkbox" name="skipBloxanaut" value="1"><span class="opt-text" style="font-size:13px;color:#6b7280;">ไม่ได้เข้าร่วมช่วงนี้</span></label></div>
+          <div class="module-feedback">
+            <label for="commentBloxanaut">คำแนะนำ / ข้อเสนอแนะสำหรับช่วงนี้ (ไม่บังคับ)</label>
+            <textarea id="commentBloxanaut" name="commentBloxanaut" rows="2" placeholder="แบ่งปันความคิดเห็นได้ค่ะ"></textarea>
+          </div>
+          <div class="err-msg" data-for="rateBloxanaut">กรุณาประเมินหรือเลือก "ไม่ได้เข้าร่วมช่วงนี้"</div>
+        </div>
+
+        <!-- ----- พิเศษ: HR Screening ----- -->
+        <div class="module-row">
+          <div class="module-info">
+            <span class="module-time" style="background:#0891B2;">พิเศษ</span>
+            <div class="module-name">HR Screening ใบสมัครด้วย AI</div>
+            <div class="module-desc">การใช้ AI ช่วยคัดกรองใบสมัครงาน / Resume — สาธิตการประยุกต์ใช้ Claude สำหรับงาน HR</div>
+          </div>
+          <div class="rating-row" data-group="rateHR">
+            <label class="rate"><input type="radio" name="rateHR" value="1"><span class="rate-box"><span class="rate-num">1</span><span class="rate-label">น้อยที่สุด</span></span></label>
+            <label class="rate"><input type="radio" name="rateHR" value="2"><span class="rate-box"><span class="rate-num">2</span><span class="rate-label">น้อย</span></span></label>
+            <label class="rate"><input type="radio" name="rateHR" value="3"><span class="rate-box"><span class="rate-num">3</span><span class="rate-label">ปานกลาง</span></span></label>
+            <label class="rate"><input type="radio" name="rateHR" value="4"><span class="rate-box"><span class="rate-num">4</span><span class="rate-label">มาก</span></span></label>
+            <label class="rate"><input type="radio" name="rateHR" value="5"><span class="rate-box"><span class="rate-num">5</span><span class="rate-label">มากที่สุด</span></span></label>
+          </div>
+          <div class="skip-line"><label class="opt" style="border:none;padding:4px 0;background:transparent;"><input type="checkbox" name="skipHR" value="1"><span class="opt-text" style="font-size:13px;color:#6b7280;">ไม่ได้เข้าร่วมช่วงนี้</span></label></div>
+          <div class="module-feedback">
+            <label for="commentHR">คำแนะนำ / ข้อเสนอแนะสำหรับช่วงนี้ (ไม่บังคับ)</label>
+            <textarea id="commentHR" name="commentHR" rows="2" placeholder="แบ่งปันความคิดเห็นได้ค่ะ"></textarea>
+          </div>
+          <div class="err-msg" data-for="rateHR">กรุณาประเมินหรือเลือก "ไม่ได้เข้าร่วมช่วงนี้"</div>
+        </div>
+      </section>
+
+
+      <!-- ===== SECTION 10: การนำไปใช้ (optional) ===== -->
+      <section class="section scroll-anchor" id="sec11">
+        <div class="section-header">
+          <span class="section-number">11</span>
+          <h2 class="section-title">การนำความรู้ไปใช้ประโยชน์</h2>
+        </div>
+        <p class="section-desc">ทุกคำตอบในส่วนนี้ไม่บังคับ ตอบเท่าที่สะดวกได้ค่ะ</p>
+
+        <div class="field">
+          <label class="label">ความเชื่อมั่นว่าจะสามารถนำเนื้อหาที่อบรมไปใช้ในงานได้จริง<span class="helper">ไม่บังคับ</span></label>
+          <div class="rating-row" data-group="rateApply">
+            <label class="rate"><input type="radio" name="rateApply" value="1"><span class="rate-box"><span class="rate-num">1</span><span class="rate-label">ไม่มั่นใจ</span></span></label>
+            <label class="rate"><input type="radio" name="rateApply" value="2"><span class="rate-box"><span class="rate-num">2</span><span class="rate-label">ไม่ค่อยมั่นใจ</span></span></label>
+            <label class="rate"><input type="radio" name="rateApply" value="3"><span class="rate-box"><span class="rate-num">3</span><span class="rate-label">ปานกลาง</span></span></label>
+            <label class="rate"><input type="radio" name="rateApply" value="4"><span class="rate-box"><span class="rate-num">4</span><span class="rate-label">ค่อนข้างมั่นใจ</span></span></label>
+            <label class="rate"><input type="radio" name="rateApply" value="5"><span class="rate-box"><span class="rate-num">5</span><span class="rate-label">มั่นใจมาก</span></span></label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">หัวข้อใดที่ท่านจะนำไปใช้ในงานได้จริง<span class="helper">ไม่บังคับ — เลือกได้มากกว่า 1 ข้อ</span></label>
+          <div class="checkbox-group" data-group="applyTopics">
+            <label class="opt"><input type="checkbox" name="applyTopics" value="Prompt + เลขา AI"><span class="opt-text">Prompt Engineering และเลขาส่วนตัวด้วย AI</span></label>
+            <label class="opt"><input type="checkbox" name="applyTopics" value="วิเคราะห์ Excel"><span class="opt-text">การวิเคราะห์ Excel ด้วย AI</span></label>
+            <label class="opt"><input type="checkbox" name="applyTopics" value="NotebookLM + นำเสนอ"><span class="opt-text">NotebookLM และการสร้างสไลด์นำเสนอ</span></label>
+            <label class="opt"><input type="checkbox" name="applyTopics" value="คอนเทนต์ / โฆษณา"><span class="opt-text">การทำคอนเทนต์/โฆษณาด้วย AI</span></label>
+            <label class="opt"><input type="checkbox" name="applyTopics" value="OCR / สแกนบิล"><span class="opt-text">OCR สแกนบิล/เอกสารเป็น Excel</span></label>
+            <label class="opt"><input type="checkbox" name="applyTopics" value="เช็คคู่แข่ง / Meta AI"><span class="opt-text">การเช็คคู่แข่ง / Meta AI</span></label>
+            <label class="opt"><input type="checkbox" name="applyTopics" value="Claude Cowork"><span class="opt-text">Claude Cowork (Desktop Agent)</span></label>
+            <label class="opt"><input type="checkbox" name="applyTopics" value="Google Workspace AI"><span class="opt-text">Google Workspace AI (Gemini ใน Gmail/Calendar)</span></label>
+            <label class="opt"><input type="checkbox" name="applyTopics" value="TrickShot"><span class="opt-text">TrickShot (Salepage / Infographic / Mixboard ฯลฯ)</span></label>
+            <label class="opt"><input type="checkbox" name="applyTopics" value="Bloxanaut"><span class="opt-text">Router AI / Bloxanaut Platform</span></label>
+            <label class="opt"><input type="checkbox" name="applyTopics" value="HR Screening"><span class="opt-text">HR Screening ใบสมัครด้วย AI</span></label>
+            <label class="opt"><input type="checkbox" name="applyTopics" value="ขอนำกลับไปทบทวนก่อน"><span class="opt-text">ขอนำกลับไปทบทวนก่อน</span></label>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- ===== SECTION 11: เสียงสะท้อนเพื่อครั้งหน้า ===== -->
+      <section class="section scroll-anchor" id="sec12">
+        <div class="section-header">
+          <span class="section-number">12</span>
+          <h2 class="section-title">เสียงสะท้อนเพื่อการอบรมครั้งต่อไป</h2>
+        </div>
+        <p class="section-desc">ความคิดเห็นของท่านจะถูกนำไปใช้ในการออกแบบหลักสูตรครั้งต่อไป โปรดแบ่งปันความต้องการของท่านได้ตามสะดวกค่ะ</p>
+
+        <div class="field">
+          <label class="label">ระยะเวลาการอบรมที่ท่านคิดว่าเหมาะสมในครั้งต่อไป</label>
+          <div class="radio-group" data-group="nextDuration">
+            <label class="opt"><input type="radio" name="nextDuration" value="ครึ่งวัน"><span class="opt-text">ครึ่งวัน (3–4 ชั่วโมง)</span></label>
+            <label class="opt"><input type="radio" name="nextDuration" value="1 วัน"><span class="opt-text">1 วัน (เหมือนครั้งนี้)</span></label>
+            <label class="opt"><input type="radio" name="nextDuration" value="2 วัน"><span class="opt-text">2 วัน (เนื้อหาเชิงลึกมากขึ้น)</span></label>
+            <label class="opt"><input type="radio" name="nextDuration" value="หลายครั้ง สั้น ๆ"><span class="opt-text">จัดเป็นหลายครั้ง ครั้งละสั้น ๆ (เช่น สัปดาห์ละครั้ง)</span></label>
+            <label class="opt"><input type="radio" name="nextDuration" value="อื่น ๆ"><span class="opt-text">อื่น ๆ (โปรดระบุในช่องด้านล่าง)</span></label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label" for="nextDurationOther">ระยะเวลาอื่น ๆ ที่ท่านต้องการ<span class="helper">ไม่บังคับ — กรอกหากเลือก "อื่น ๆ" ด้านบน</span></label>
+          <input type="text" id="nextDurationOther" name="nextDurationOther" placeholder="โปรดระบุ">
+        </div>
+
+        <div class="field">
+          <label class="label">รูปแบบสถานที่ที่ท่านอยากให้จัดในครั้งต่อไป<span class="helper">เลือกได้มากกว่า 1 ข้อ</span></label>
+          <div class="checkbox-group" data-group="nextVenue">
+            <label class="opt"><input type="checkbox" name="nextVenue" value="Online ผ่าน Zoom"><span class="opt-text">Online ผ่าน Zoom</span></label>
+            <label class="opt"><input type="checkbox" name="nextVenue" value="หอการค้าไทย"><span class="opt-text">Onsite — สภาหอการค้าไทย</span></label>
+            <label class="opt"><input type="checkbox" name="nextVenue" value="โรงแรม"><span class="opt-text">Onsite — โรงแรม</span></label>
+            <label class="opt"><input type="checkbox" name="nextVenue" value="Co-working space"><span class="opt-text">Co-working space</span></label>
+            <label class="opt"><input type="checkbox" name="nextVenue" value="ในองค์กรของผู้เข้าอบรม"><span class="opt-text">ในองค์กรของผู้เข้าอบรม (In-house)</span></label>
+            <label class="opt"><input type="checkbox" name="nextVenue" value="อื่น ๆ"><span class="opt-text">อื่น ๆ (โปรดระบุในช่องด้านล่าง)</span></label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label" for="nextVenueOther">สถานที่อื่น ๆ ที่ท่านต้องการ<span class="helper">ไม่บังคับ</span></label>
+          <input type="text" id="nextVenueOther" name="nextVenueOther" placeholder="โปรดระบุ">
+        </div>
+
+        <div class="field">
+          <label class="label" for="nextTopics">วิชาหรือหัวข้อที่ท่านอยากให้สอนเพิ่มเติม<span class="helper">ไม่บังคับ — โปรดระบุได้ตามต้องการ</span></label>
+          <textarea id="nextTopics" name="nextTopics" rows="3" placeholder="เช่น AI สำหรับ HR เชิงลึก, AI วิเคราะห์การเงิน, AI Chatbot ตอบลูกค้า ฯลฯ"></textarea>
+        </div>
+
+        <div class="field">
+          <label class="label">ในครั้งต่อไป ท่านอยากให้วิทยากรจับมือทำในระดับใด</label>
+          <div class="radio-group" data-group="nextHandsOn">
+            <label class="opt"><input type="radio" name="nextHandsOn" value="ฟัง / สาธิต"><span class="opt-text">ฟังและสาธิต — ดูวิทยากรทำเป็นหลัก</span></label>
+            <label class="opt"><input type="radio" name="nextHandsOn" value="Workshop ตามขั้นตอน"><span class="opt-text">Workshop ตามขั้นตอน — ทำตามวิทยากรในห้อง</span></label>
+            <label class="opt"><input type="radio" name="nextHandsOn" value="Workshop เชิงลึก"><span class="opt-text">Workshop เชิงลึก — ทำโจทย์จริงของท่านในห้อง</span></label>
+            <label class="opt"><input type="radio" name="nextHandsOn" value="Coaching 1-on-1"><span class="opt-text">Coaching แบบ 1-on-1 — ปรึกษาเฉพาะธุรกิจของท่าน</span></label>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- ===== SECTION 12: ความคิดเห็นและข้อเสนอแนะ ===== -->
+      <section class="section scroll-anchor" id="sec13">
+        <div class="section-header">
+          <span class="section-number">13</span>
+          <h2 class="section-title">ความคิดเห็นและข้อเสนอแนะอื่น ๆ</h2>
+        </div>
+
+        <div class="field">
+          <label class="label" for="comment">ความคิดเห็นเพิ่มเติม / ข้อเสนอแนะอื่น ๆ<span class="helper">ไม่บังคับ — แบ่งปันสิ่งที่ท่านอยากบอกทีมงานได้เลยค่ะ</span></label>
+          <textarea id="comment" name="comment" rows="4" placeholder="เขียนความคิดเห็นได้ตามสะดวกค่ะ"></textarea>
+        </div>
+      </section>
+
+
+      <!-- ===== SECTION 13: การพัฒนาต่อเนื่อง (Lead Gen) ===== -->
+      <section class="section scroll-anchor" id="sec14">
+        <div class="section-header">
+          <span class="section-number">14</span>
+          <h2 class="section-title">การพัฒนาต่อเนื่อง</h2>
+        </div>
+        <p class="section-desc">หากท่านสนใจให้ทีมงานจัดส่งข้อมูลเพิ่มเติม หรือพิจารณาพัฒนาความสามารถด้าน AI ในองค์กร โปรดเลือกหัวข้อที่สนใจด้านล่างค่ะ</p>
+
+        <div class="field">
+          <label class="label">หัวข้อที่ท่านสนใจพัฒนาต่อเนื่อง<span class="helper">เลือกได้มากกว่า 1 ข้อ · หรือเลือก "ยังไม่สนใจในตอนนี้" หากยังไม่ต้องการ</span></label>
+          <div class="checkbox-group" data-group="interest">
+            <label class="opt"><input type="checkbox" name="interest" value="หลักสูตร In-house"><span class="opt-text">หลักสูตร AI In-house สำหรับองค์กร (จัดให้พนักงานทั้งทีม)</span></label>
+            <label class="opt"><input type="checkbox" name="interest" value="หลักสูตรเฉพาะทาง"><span class="opt-text">หลักสูตรเฉพาะแผนก (HR / Marketing / Finance / Sales / Operations)</span></label>
+            <label class="opt"><input type="checkbox" name="interest" value="Workshop เชิงลึก"><span class="opt-text">Workshop เชิงลึก / Coaching แบบ 1-on-1</span></label>
+            <label class="opt"><input type="checkbox" name="interest" value="พัฒนา AI Product"><span class="opt-text">การพัฒนา AI Product ภายในองค์กร (Chatbot · AI Agent · Workflow Automation)</span></label>
+            <label class="opt"><input type="checkbox" name="interest" value="AI Audit + Roadmap"><span class="opt-text">การตรวจสอบและวางแผน AI Roadmap ขององค์กร</span></label>
+            <label class="opt"><input type="checkbox" name="interest" value="Consult โครงการ"><span class="opt-text">ที่ปรึกษาโครงการ AI ที่กำลังดำเนินอยู่</span></label>
+            <label class="opt"><input type="checkbox" name="interest" value="รับข่าวสาร AI"><span class="opt-text">รับข่าวสาร / บทความ / กรณีศึกษา AI อย่างต่อเนื่อง</span></label>
+            <label class="opt"><input type="checkbox" name="interest" value="ยังไม่สนใจในตอนนี้"><span class="opt-text">ยังไม่สนใจในตอนนี้</span></label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">หากท่านสนใจ ทีมงานสามารถติดต่อกลับได้ผ่านช่องทางใด<span class="helper">เลือกได้มากกว่า 1 ช่องทาง</span></label>
+          <div class="checkbox-group" data-group="contactCh">
+            <label class="opt"><input type="checkbox" name="contactCh" value="Email"><span class="opt-text">อีเมล (ตามที่กรอกในข้อ 1)</span></label>
+            <label class="opt"><input type="checkbox" name="contactCh" value="Phone"><span class="opt-text">โทรศัพท์</span></label>
+            <label class="opt"><input type="checkbox" name="contactCh" value="LINE"><span class="opt-text">LINE (ตามที่กรอกในข้อ 1)</span></label>
+            <label class="opt"><input type="checkbox" name="contactCh" value="ไม่สะดวก"><span class="opt-text">ไม่สะดวกให้ติดต่อในตอนนี้</span></label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label" for="phone">เบอร์โทรศัพท์<span class="helper">หากเลือกให้ติดต่อทางโทรศัพท์ โปรดระบุ</span></label>
+          <input type="tel" id="phone" name="phone" autocomplete="tel" placeholder="เช่น 081-234-5678" inputmode="tel">
+        </div>
+
+        <div class="field">
+          <label class="label" for="bestTime">ช่วงเวลาที่สะดวกให้ติดต่อ</label>
+          <input type="text" id="bestTime" name="bestTime" placeholder="เช่น วันจันทร์–ศุกร์ เวลา 10:00–17:00 น.">
+        </div>
+      </section>
+
+
+
+      <!-- ===== SECTION 15: ภาพรวมการอบรม (rateOverall — ข้อสุดท้าย) ===== -->
+      <section class="section scroll-anchor" id="sec15">
+        <div class="section-header">
+          <span class="section-number">15</span>
+          <h2 class="section-title">ภาพรวมการอบรมในวันนี้</h2>
+        </div>
+        <p class="section-desc">โดยภาพรวมของการอบรมในวันนี้ ท่านพึงพอใจในระดับใดค่ะ</p>
+
+        <div class="field" style="margin-bottom:0;">
+          <label class="label">ความพึงพอใจโดยรวม</label>
+          <div class="rating-row" data-group="rateOverall">
+            <label class="rate"><input type="radio" name="rateOverall" value="1"><span class="rate-box"><span class="rate-num">1</span><span class="rate-label">น้อยที่สุด</span></span></label>
+            <label class="rate"><input type="radio" name="rateOverall" value="2"><span class="rate-box"><span class="rate-num">2</span><span class="rate-label">น้อย</span></span></label>
+            <label class="rate"><input type="radio" name="rateOverall" value="3"><span class="rate-box"><span class="rate-num">3</span><span class="rate-label">ปานกลาง</span></span></label>
+            <label class="rate"><input type="radio" name="rateOverall" value="4"><span class="rate-box"><span class="rate-num">4</span><span class="rate-label">มาก</span></span></label>
+            <label class="rate"><input type="radio" name="rateOverall" value="5"><span class="rate-box"><span class="rate-num">5</span><span class="rate-label">มากที่สุด</span></span></label>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== SUBMIT ===== -->
+      <div class="submit-section">
+        <button type="submit" class="submit-btn" id="submitBtn">
+          <span id="btnText">ส่งแบบประเมิน</span>
+        </button>
+        <p class="submit-note">ขอบพระคุณท่านที่สละเวลาประเมินค่ะ 🙏</p>
+      </div>
+
+    </form>
+
+    <!-- ===== SUCCESS PANEL ===== -->
+    <div class="panel-success" id="panelSuccess">
+      <div class="panel-icon">✓</div>
+      <h2>ส่งแบบประเมินเรียบร้อยแล้ว</h2>
+      <p>ขอบพระคุณท่านเป็นอย่างสูงที่ร่วมประเมินค่ะ<br>ทีมงานจะนำความคิดเห็นของท่านไปพัฒนาหลักสูตรครั้งต่อไปให้ดียิ่งขึ้นค่ะ<br><br>หากท่านได้แจ้งความสนใจในการพัฒนาต่อเนื่อง ทีมงานจะติดต่อกลับตามช่องทางที่ท่านระบุค่ะ</p>
+    </div>
+
+    <!-- ===== ERROR PANEL ===== -->
+    <div class="panel-error" id="panelError">
+      <div class="panel-icon">⚠</div>
+      <h2>ไม่สามารถส่งข้อมูลได้</h2>
+      <p>เกิดข้อผิดพลาดในการส่งข้อมูล<br>กรุณาตรวจสอบการเชื่อมต่ออินเทอร์เน็ตและลองอีกครั้งค่ะ</p>
+      <button class="retry-btn" onclick="retrySubmit()">ลองส่งอีกครั้ง</button>
+    </div>
+
+  </main>
+
+
+  <p class="footer">© 2569 หอการค้าไทย × One7 AI</p>
+
+</div>
+
+
+<script>
+/* =====================================================================
+   CONFIG
+   ===================================================================== */
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwcsrEjGKkX5khy3mJ8mX3Qn5sadz6nwO7IWGwcblqOVudCECmHbaCmUXqdryZFDOO7/exec';
+
+/* =====================================================================
+   FORM HANDLING — v3
+   ===================================================================== */
+const form = document.getElementById('surveyForm');
+const submitBtn = document.getElementById('submitBtn');
+const btnText = document.getElementById('btnText');
+const panelSuccess = document.getElementById('panelSuccess');
+const panelError = document.getElementById('panelError');
+const formCard = document.getElementById('formCard');
+const intro = document.querySelector('.intro');
+
+let lastPayload = null;
+
+/* ----- Required field rules (v3 — minimal required) ----- */
+const REQUIRED_TEXT  = ['organization', 'email'];   // x1.2, x1.4
+const REQUIRED_RADIO = ['attendType'];               // x1.6
+
+// Module ratings — required IF NOT skipped (only if user engaged with the section)
+// In v3, all rating fields are essentially optional unless user starts rating
+// We keep skip-or-rate logic for module sections to ensure data integrity
+const MODULES = ['M2','M3','M4','M5','M6','M7'];
+const BONUS = ['Landscape', 'Business', 'Bloxanaut', 'HR'];
+
+// (PRODUCT_CODES removed in v3 — replaced by rateLandscape, rateBusiness, productInterest)
+
+/* ----- Email validation ----- */
+function isValidEmail(v) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim());
+}
+
+/* ----- Show / clear errors ----- */
+function setError(name, show) {
+  const msg = document.querySelector(`.err-msg[data-for="${name}"]`);
+  if (msg) msg.classList.toggle('show', show);
+  const el = document.getElementById(name) || document.querySelector(`[data-group="${name}"]`);
+  if (el) el.classList.toggle('error', show);
+}
+
+function clearAllErrors() {
+  document.querySelectorAll('.err-msg').forEach(e => e.classList.remove('show'));
+  document.querySelectorAll('.error').forEach(e => e.classList.remove('error'));
+}
+
+/* ----- Validate ----- */
+function validate() {
+  clearAllErrors();
+  let firstErrorEl = null;
+  const recordError = (name) => {
+    setError(name, true);
+    if (!firstErrorEl) {
+      firstErrorEl = document.getElementById(name)
+                  || document.querySelector(`[data-group="${name}"]`);
+    }
+  };
+
+  // Required text
+  REQUIRED_TEXT.forEach(name => {
+    const el = document.getElementById(name);
+    if (!el || !el.value.trim()) recordError(name);
+  });
+  // Email format
+  const emailEl = document.getElementById('email');
+  if (emailEl.value.trim() && !isValidEmail(emailEl.value)) recordError('email');
+
+  // Required radios
+  REQUIRED_RADIO.forEach(name => {
+    if (!document.querySelector(`input[name="${name}"]:checked`)) recordError(name);
+  });
+
+  // Module ratings — required UNLESS skipped (only if checkbox unchecked AND no rating)
+  MODULES.forEach(m => {
+    const skipped = document.querySelector(`input[name="skip${m}"]`).checked;
+    const rated = document.querySelector(`input[name="rate${m}"]:checked`);
+    if (!skipped && !rated) recordError(`rate${m}`);
+  });
+
+  // Bonus segments (Bloxanaut / HR)
+  BONUS.forEach(b => {
+    const skipped = document.querySelector(`input[name="skip${b}"]`).checked;
+    const rated = document.querySelector(`input[name="rate${b}"]:checked`);
+    if (!skipped && !rated) recordError(`rate${b}`);
+  });
+
+  if (firstErrorEl) {
+    firstErrorEl.scrollIntoView({behavior: 'smooth', block: 'center'});
+    return false;
+  }
+  return true;
+}
+
+/* ----- Build payload ----- */
+function buildPayload() {
+  const fd = new FormData(form);
+  const data = {};
+
+  // Section 1: respondent
+  ['fullname','organization','position','email','lineIdMain','attendType'].forEach(k => {
+    data[k] = (fd.get(k) || '').toString().trim();
+  });
+
+  // Section 2: AI Landscape (rate + skip)
+  data.rateLandscape = (fd.get('rateLandscape') || '').toString();
+  data.skipLandscape = fd.get('skipLandscape') ? 'Yes' : '';
+  // Section 3: AI Business (rate + skip + 10 product checkboxes + open-ended)
+  data.rateBusiness   = (fd.get('rateBusiness') || '').toString();
+  data.skipBusiness   = fd.get('skipBusiness') ? 'Yes' : '';
+  data.productInterest = fd.getAll('productInterest').join(', ');
+  data.productComment  = (fd.get('productComment') || '').toString().trim();
+
+  // Sections 3–8: module rate + skip + comment
+  MODULES.forEach(m => {
+    data[`rate${m}`]    = (fd.get(`rate${m}`) || '').toString();
+    data[`skip${m}`]    = fd.get(`skip${m}`) ? 'Yes' : '';
+    data[`comment${m}`] = (fd.get(`comment${m}`) || '').toString().trim();
+  });
+
+  // Section 9: TrickShot (checkbox only) + Bonus
+  data.trickFavs       = fd.getAll('trickFavs').join(', ');
+  data.rateBloxanaut   = (fd.get('rateBloxanaut') || '').toString();
+  data.skipBloxanaut   = fd.get('skipBloxanaut') ? 'Yes' : '';
+  data.commentBloxanaut= (fd.get('commentBloxanaut') || '').toString().trim();
+  data.rateHR          = (fd.get('rateHR') || '').toString();
+  data.skipHR          = fd.get('skipHR') ? 'Yes' : '';
+  data.commentHR       = (fd.get('commentHR') || '').toString().trim();
+
+  // Section 10: apply
+  data.rateApply   = (fd.get('rateApply') || '').toString();
+  data.applyTopics = fd.getAll('applyTopics').join(', ');
+
+  // Section 11: voice for next + final overall
+  data.nextDuration      = (fd.get('nextDuration') || '').toString();
+  data.nextDurationOther = (fd.get('nextDurationOther') || '').toString().trim();
+  data.nextVenue         = fd.getAll('nextVenue').join(', ');
+  data.nextVenueOther    = (fd.get('nextVenueOther') || '').toString().trim();
+  data.nextTopics        = (fd.get('nextTopics') || '').toString().trim();
+  data.nextHandsOn       = (fd.get('nextHandsOn') || '').toString();
+  data.rateOverall       = (fd.get('rateOverall') || '').toString();
+
+  // Section 12: comment
+  data.comment = (fd.get('comment') || '').toString().trim();
+
+  // Section 13: lead gen
+  data.interest  = fd.getAll('interest').join(', ');
+  data.contactCh = fd.getAll('contactCh').join(', ');
+  data.phone     = (fd.get('phone') || '').toString().trim();
+  data.bestTime  = (fd.get('bestTime') || '').toString().trim();
+
+  // Meta
+  data.submittedAt = new Date().toISOString();
+  data.userAgent = navigator.userAgent;
+  data.lang = navigator.language || '';
+  data.formVersion = 'v3';
+
+  return data;
+}
+
+/* ----- Submit (preserved CORS-safe pattern) ----- */
+async function doSubmit() {
+  submitBtn.disabled = true;
+  btnText.textContent = 'กำลังส่งข้อมูล...';
+
+  try {
+    if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL.includes('PASTE_YOUR')) {
+      throw new Error('Apps Script URL ยังไม่ได้ตั้งค่า');
+    }
+    // No custom Content-Type header — browser sets simple-request type automatically
+    // Use URLSearchParams (form-urlencoded) — most reliable pattern for Apps Script
+    // Apps Script reads via e.parameter.payload — no CORS preflight, no parsing issues
+    const params = new URLSearchParams();
+    params.append('payload', JSON.stringify(lastPayload));
+    const res = await fetch(APPS_SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      body: params
+    });
+    showSuccess();
+  } catch (err) {
+    console.error('Submit error:', err);
+    showError();
+  }
+}
+
+function showSuccess() {
+  formCard.querySelector('form').style.display = 'none';
+  if (intro) intro.style.display = 'none';
+  document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
+  document.querySelector('.submit-section').style.display = 'none';
+  panelSuccess.classList.add('show');
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+function showError() {
+  panelError.classList.add('show');
+  panelError.scrollIntoView({behavior:'smooth', block:'center'});
+  submitBtn.disabled = false;
+  btnText.textContent = 'ส่งแบบประเมิน';
+}
+function retrySubmit() {
+  panelError.classList.remove('show');
+  if (lastPayload) doSubmit();
+}
+window.retrySubmit = retrySubmit;
+
+/* ----- Form submit handler ----- */
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  if (!validate()) return;
+  lastPayload = buildPayload();
+  doSubmit();
+});
+
+/* ----- Auto-clear error on user interaction ----- */
+form.addEventListener('input', (e) => {
+  const t = e.target;
+  if (t.name) setError(t.name, false);
+});
+form.addEventListener('change', (e) => {
+  const t = e.target;
+  if (t.name) {
+    setError(t.name, false);
+    // If user marks a "skip" checkbox, clear that segment's rating-required error
+    if (t.name.startsWith('skip')) {
+      setError('rate' + t.name.slice(4), false);
+    }
+  }
+});
+</script>
+
+
+</body>
+</html>
